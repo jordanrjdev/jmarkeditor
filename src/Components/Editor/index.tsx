@@ -1,8 +1,11 @@
+// @ts-ignore
 import { useEffect, useState } from "react";
-import { Remarkable } from "remarkable";
 import { useLocation } from "wouter";
 import { useNotes } from "../../Context/noteContext";
 import { defaultNote } from "../../types";
+
+// @ts-ignore
+import { Remarkable } from "remarkable";
 
 const md = new Remarkable();
 
