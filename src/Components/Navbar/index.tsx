@@ -20,18 +20,11 @@ export const Navbar = () => {
         <NavLinks href="/mynotes">My Notes</NavLinks>
         <Separator />
         <a
-          href="https://github.com/jordanrjdev"
+          href="https://github.com/jordanrjdev/jmarkeditor"
           target="_blank"
           rel="noopener noreferrer"
         >
           <GithubIcon />
-        </a>
-        <a
-          href="https://twitter.com/jordanrjdev"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <TwitterIcon />
         </a>
       </div>
     </nav>
