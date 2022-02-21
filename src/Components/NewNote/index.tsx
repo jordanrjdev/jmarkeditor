@@ -1,34 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
-import { useNotes } from "../../Context/noteContext";
 import { Background2 } from "../../Icons/Backgrounds";
 import { Container } from "../Container";
 import { Input } from "../UI/Input";
 import { Error } from "../UI/Error";
 
 import shortid from "shortid";
-
-const markdownInitialState = `
-# Hello, world!
-This is a example of markdown.
-
->Note: this note will be save in LocalStorage and sent to your email.
-
-With ❤️ [Jordan Jaramillo](https://github.com/jordanrjdev)
-`;
+import { defaultNote, Note } from "../../types";
+import { useNotes } from "../../Hooks/useNotes";
 
 export const NewNote = () => {
-  const [error, setError] = useState("");
   const [location, setLocation] = useLocation();
-  const { draft, resetDraft, handleDraft, saveNote, setCurrentNote } =
-    useNotes();
+  const { saveNoteLocalStorage } = useNotes();
+  const [error, setError] = useState("");
+  const [dataNote, setDataNote] = useState<Note>(defaultNote);
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
-      !draft.title.trim() ||
-      !draft.description.trim() ||
-      !draft.author.trim()
+      !dataNote.title.trim() ||
+      !dataNote.description.trim() ||
+      !dataNote.author
     ) {
       setError("All fields are required");
       setTimeout(() => {
@@ -36,25 +28,22 @@ export const NewNote = () => {
       }, 3000);
       return;
     }
-    let newNote = {
-      title: draft.title,
-      description: draft.description,
-      author: draft.author,
-      id: shortid.generate(),
-      date: new Date().toLocaleString(),
-      content: markdownInitialState,
-    };
-    saveNote(newNote);
-    setCurrentNote(newNote);
-    setLocation(`/editor`);
+    saveNoteLocalStorage(dataNote);
+    setLocation(`/editor/${dataNote.id}`);
   };
 
   const inputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    handleDraft(e.target.name, e.target.value);
+    setDataNote({
+      ...dataNote,
+      [e.target.name]: e.target.value,
+    });
   };
 
   useEffect(() => {
-    resetDraft();
+    setDataNote({
+      ...dataNote,
+      id: shortid.generate(),
+    });
   }, []);
 
   return (
@@ -79,7 +68,7 @@ export const NewNote = () => {
           placeholder="Blog 1"
           name="title"
           type="text"
-          value={draft.title}
+          value={dataNote.title}
           onChange={inputChange}
         />
         <Input
@@ -87,14 +76,14 @@ export const NewNote = () => {
           placeholder="Your description"
           name="description"
           type="text"
-          value={draft.description}
+          value={dataNote.description}
           onChange={inputChange}
         />
         <Input
           label="Author"
           placeholder="Jhon Doe"
           name="author"
-          value={draft.author}
+          value={dataNote.author}
           type="text"
           onChange={inputChange}
         />

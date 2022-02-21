@@ -6,8 +6,8 @@ type PropsIcon = {
 export const TwitterIcon = (props: PropsIcon) => {
   let { width, height, color } = props;
 
-  if (width === undefined) width = "20";
-  if (height === undefined) height = "20";
+  if (width === undefined) width = "20px";
+  if (height === undefined) height = "20px";
   if (color === undefined) color = "currentColor";
 
   return (
@@ -22,8 +22,8 @@ export const TwitterIcon = (props: PropsIcon) => {
 
 export const LinkedinIcon = (props: PropsIcon) => {
   let { width, height, color } = props;
-  if (width === undefined) width = "20";
-  if (height === undefined) height = "20";
+  if (width === undefined) width = "20px";
+  if (height === undefined) height = "20px";
   if (color === undefined) color = "currentColor";
   return (
     <svg width={width} height={height} viewBox="0 0 24 24">

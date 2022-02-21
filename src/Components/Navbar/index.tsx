@@ -17,7 +17,7 @@ export const Navbar = () => {
       <div className="nav-links flex justify-end items-center space-x-4">
         <NavLinks href="/">Docs</NavLinks>
         <NavLinks href="/new">New note</NavLinks>
-        <NavLinks href="/my-notes">My Notes</NavLinks>
+        <NavLinks href="/mynotes">My Notes</NavLinks>
         <Separator />
         <a
           href="https://github.com/jordanrjdev"

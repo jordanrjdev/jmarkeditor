@@ -1,41 +1,37 @@
 // @ts-ignore
 import { useEffect, useState } from "react";
-import { useLocation } from "wouter";
-import { useNotes } from "../../Context/noteContext";
-import { defaultNote } from "../../types";
-
+import { useLocation, useRoute } from "wouter";
+import { useNotes } from "../../Hooks/useNotes";
 // @ts-ignore
 import { Remarkable } from "remarkable";
+import { defaultNote, Note } from "../../types";
 
 const md = new Remarkable();
 
 export const Editor = () => {
-  const { draft, saveNote, currentNote, resetDraft, setCurrentNote } =
-    useNotes();
   const [location, setLocation] = useLocation();
+  const [match, params] = useRoute("/editor/:id");
+  const [currentNote, setCurrentNote] = useState<Note>(defaultNote);
+  const { saveNoteLocalStorage, getNoteByIdLocalStorage } = useNotes();
   const [markdown, setMarkdown] = useState<string>("");
   const [changes, setChanges] = useState<boolean>(false);
 
   const handleClickSaveButton = () => {
-    saveNote({
+    let nowCurrent: Note = saveNoteLocalStorage({
       ...currentNote,
       content: markdown,
     });
+    setCurrentNote(nowCurrent);
   };
 
   useEffect(() => {
-    if (
-      (!draft.title.trim() ||
-        !draft.description.trim() ||
-        !draft.author.trim()) &&
-      currentNote.id == ""
-    ) {
-      setLocation(`/new`);
+    let currentNoteLS = getNoteByIdLocalStorage(params?.id || "");
+    console.log(currentNoteLS);
+    if (currentNoteLS) {
+      setCurrentNote(currentNoteLS);
+    } else {
+      setLocation("/");
     }
-
-    return () => {
-      resetDraft();
-    };
   }, []);
 
   useEffect(() => {
