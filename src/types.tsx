@@ -1,13 +1,6 @@
 export type NoteContext = {
   notes: Note[];
-  draft: Draft;
-  currentNote: Note;
-  setNotes: (notes: Note[]) => void;
-  deleteNote(id: string): void;
-  resetDraft(): void;
-  handleDraft(p1: string, p2: string): void;
-  saveNote(note: Note): void;
-  setCurrentNote(note: Note): void;
+  setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
 };
 
 export type Note = {

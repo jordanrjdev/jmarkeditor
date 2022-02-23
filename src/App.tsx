@@ -1,7 +1,7 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect } from "react";
 import { Route, useLocation, Switch } from "wouter";
 import { Navbar } from "./Components/Navbar";
-import { Editor } from "./Components/Editor";
+import { Editor } from "./Components/Editor/index";
 import { LandingPage } from "./Components/LandingPage";
 import { NewNote } from "./Components/NewNote";
 import { Note } from "./types";
@@ -12,9 +12,7 @@ import { Empty } from "./Components/UI/Empty";
 import { NoteItem } from "./Components/NoteItem";
 import { Page404 } from "./Components/UI/Page404";
 function App() {
-  const [notes, setNotes] = useState<Note[]>([]);
-  const [location] = useLocation();
-  const { getNotesLocalStorage } = useNotes();
+  const { notes, getNotesLocalStorage } = useNotes();
 
   const onEmpty = () => <Empty />;
 
@@ -23,14 +21,12 @@ function App() {
   );
 
   const syncNotes = () => {
-    if (location === "/mynotes") {
-      let notesLS = getNotesLocalStorage();
-      setNotes([...notesLS]);
-    }
+    getNotesLocalStorage();
   };
+
   useEffect(() => {
     syncNotes();
-  }, [location]);
+  }, []);
 
   return (
     <Fragment>

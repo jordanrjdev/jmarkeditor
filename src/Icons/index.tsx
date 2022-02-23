@@ -20,6 +20,30 @@ export const TwitterIcon = (props: PropsIcon) => {
   );
 };
 
+export const MenuRight = (props: PropsIcon) => {
+  let { width, height, color } = props;
+  if (width === undefined) width = "20px";
+  if (height === undefined) height = "20px";
+  if (color === undefined) color = "currentColor";
+  return (
+    <svg width={width} height={height} viewBox="0 0 24 24">
+      <path fill={color} d="M10,17L15,12L10,7V17Z" />
+    </svg>
+  );
+};
+
+export const MenuDown = (props: PropsIcon) => {
+  let { width, height, color } = props;
+  if (width === undefined) width = "20px";
+  if (height === undefined) height = "20px";
+  if (color === undefined) color = "currentColor";
+  return (
+    <svg width={width} height={height} viewBox="0 0 24 24">
+      <path fill={color} d="M7,10L12,15L17,10H7Z" />
+    </svg>
+  );
+};
+
 export const LinkedinIcon = (props: PropsIcon) => {
   let { width, height, color } = props;
   if (width === undefined) width = "20px";
