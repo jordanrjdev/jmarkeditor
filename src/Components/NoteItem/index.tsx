@@ -17,11 +17,11 @@ export const NoteItem = ({
   };
 
   return (
-    <div className="flex flex-col justify-center bg-gray-300 p-3 w-full rounded-md">
+    <div className="flex flex-col justify-center border p-3 w-full rounded-md hover:shadow-lg transition-shadow duration-200">
       <h1 className="text-xl font-semibold cursor-pointer">{note.title}</h1>
-      <span className="text-blue-500">
-        <em className="text-black font-semibold">{note.author} -</em>{" "}
-        {note.date}
+      <em className="text-gray-600">{note.description}</em>
+      <span className="text-blue-400">
+        {new Date(note.date).toDateString()}
       </span>
 
       <div className="space-x-4 mt-1">

@@ -38,20 +38,12 @@ export const Editor = () => {
     let currentNoteLS = getNoteByIdLocalStorage(params?.id || "");
     if (!currentNoteLS) {
       setLocation("/");
-      return;
+    } else {
+      onLoading();
+      setMarkdown(currentNoteLS.content);
+      setCurrentNote(currentNoteLS);
     }
-    onLoading();
-    setCurrentNote(currentNoteLS);
   }, [location]);
-
-  useEffect(() => {
-    setMarkdown(currentNote.content);
-    if (markdown === currentNote.content) {
-      setChanges(false);
-      return;
-    }
-    setChanges(true);
-  }, [currentNote.content]);
 
   useEffect(() => {
     if (markdown !== currentNote.content) {
@@ -59,7 +51,7 @@ export const Editor = () => {
     } else {
       setChanges(false);
     }
-  }, [markdown]);
+  }, [markdown, currentNote]);
 
   return (
     <>
